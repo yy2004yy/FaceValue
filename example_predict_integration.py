@@ -18,12 +18,12 @@ def example_single_prediction():
     print("示例1: 单张图片预测")
     print("=" * 60)
     
-    score, model_name = predict(
+    score, score_100, model_name = predict(
         image_path='your_image.jpg',  # 替换为实际图像路径
         checkpoint_path='outputs/checkpoints/resnet18_best.pth',
         device='cuda'  # 或 'cpu'
     )
-    print(f"颜值分数: {score:.2f}/5.0")
+    print(f"颜值分数: {score:.2f}/5.0 ({score_100:.1f}/100分)")
     print(f"使用模型: {model_name}")
 
 
@@ -45,9 +45,9 @@ def example_batch_prediction():
     results = []
     for img_path in image_paths:
         try:
-            score, model_name = predict(img_path, checkpoint_path, device)
-            results.append((img_path, score))
-            print(f"{img_path}: {score:.2f}/5.0")
+            score, score_100, model_name = predict(img_path, checkpoint_path, device)
+            results.append((img_path, score, score_100))
+            print(f"{img_path}: {score:.2f}/5.0 ({score_100:.1f}/100分)")
         except Exception as e:
             print(f"处理 {img_path} 时出错: {e}")
     
@@ -75,13 +75,14 @@ def example_integration():
         
         def predict_score(self, image_path):
             """预测单张图片的颜值分数"""
-            score, model_name = predict(
+            score, score_100, model_name = predict(
                 image_path=image_path,
                 checkpoint_path=self.checkpoint_path,
                 device=self.device
             )
             return {
                 'score': score,
+                'score_100': score_100,
                 'model': model_name,
                 'image': image_path
             }
@@ -108,7 +109,7 @@ def example_integration():
     image_list = ['data/photo1.jpg', 'data/photo2.jpg']
     results = predictor.predict_batch(image_list)
     for r in results:
-        print(f"{r['image']}: {r['score']:.2f}/5.0")
+        print(f"{r['image']}: {r['score']:.2f}/5.0 ({r['score_100']:.1f}/100分)")
 
 
 def example_web_api():

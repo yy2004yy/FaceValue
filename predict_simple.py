@@ -59,7 +59,7 @@ def main():
         print(f"使用模型: {args.checkpoint}")
         print(f"设备: {device}\n")
         
-        score, model_name = predict(
+        score, score_100, model_name = predict(
             image_path=args.image,
             checkpoint_path=args.checkpoint,
             device=device
@@ -69,7 +69,7 @@ def main():
         print(f"预测结果:")
         print(f"  图像: {args.image}")
         print(f"  模型: {model_name}")
-        print(f"  颜值分数: {score:.2f}/5.0")
+        print(f"  颜值分数: {score:.2f}/5.0 ({score_100:.1f}/100分)")
         print("=" * 50)
         
     except Exception as e:

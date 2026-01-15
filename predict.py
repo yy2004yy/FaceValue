@@ -107,7 +107,10 @@ def predict(image_path: str, checkpoint_path: str, device: str = 'cpu'):
     # 限制分数在1-5范围内
     score = max(1.0, min(5.0, score))
     
-    return score, model_name
+    # 转换为百分制（乘以20）
+    score_100 = score * 20
+    
+    return score, score_100, model_name
 
 
 def main():
@@ -145,17 +148,17 @@ def main():
                 continue
             
             try:
-                score, model_name = predict(image_path, args.checkpoint, device)
-                results.append((image_path, score))
-                print(f"{image_path}: {score:.2f}/5.0")
+                score, score_100, model_name = predict(image_path, args.checkpoint, device)
+                results.append((image_path, score, score_100))
+                print(f"{image_path}: {score:.2f}/5.0 ({score_100:.1f}/100)")
             except Exception as e:
                 print(f"错误: 处理 {image_path} 时出错: {e}")
         
         # 保存结果
         output_file = args.batch.replace('.txt', '_results.txt')
         with open(output_file, 'w') as f:
-            for path, score in results:
-                f.write(f"{path}\t{score:.2f}\n")
+            for path, score, score_100 in results:
+                f.write(f"{path}\t{score:.2f}\t{score_100:.1f}\n")
         
         print(f"\n结果已保存到: {output_file}")
     
@@ -170,12 +173,12 @@ def main():
         print(f"设备: {device}\n")
         
         try:
-            score, model_name = predict(args.image, args.checkpoint, device)
+            score, score_100, model_name = predict(args.image, args.checkpoint, device)
             print("=" * 50)
             print(f"预测结果:")
             print(f"  图像: {args.image}")
             print(f"  模型: {model_name}")
-            print(f"  颜值分数: {score:.2f}/5.0")
+            print(f"  颜值分数: {score:.2f}/5.0 ({score_100:.1f}/100)")
             print("=" * 50)
         except Exception as e:
             print(f"错误: {e}")
