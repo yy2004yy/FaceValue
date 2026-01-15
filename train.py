@@ -157,7 +157,7 @@ def main():
     parser.add_argument('--lr', type=float, default=0.001, help='学习率')
     parser.add_argument('--epochs', type=int, default=100, help='训练轮数')
     parser.add_argument('--resume', type=str, default=None, help='恢复训练的checkpoint路径')
-    parser.add_argument('--gpu', type=int, default=0, help='GPU设备ID')
+    parser.add_argument('--gpu', type=int, default=None, help='GPU设备ID（不指定则自动选择GPU，CPU训练请使用 --gpu -1）')
     
     args = parser.parse_args()
     
@@ -182,13 +182,16 @@ def main():
         config.NUM_EPOCHS = args.epochs
     
     # 设置设备
-    if config.DEVICE == 'cuda' and torch.cuda.is_available():
+    # 优先检查命令行参数，然后检查GPU可用性
+    if torch.cuda.is_available():
         if args.gpu is not None:
             device = torch.device(f'cuda:{args.gpu}')
         else:
             device = torch.device('cuda')
     else:
         device = torch.device('cpu')
+        if args.gpu is not None:
+            print(f"警告: 指定了GPU {args.gpu}，但CUDA不可用，使用CPU")
     
     print(f"使用设备: {device}")
     print(f"模型: {config.MODEL_NAME}")

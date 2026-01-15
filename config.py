@@ -38,7 +38,12 @@ class Config:
     # 训练设置
     NUM_WORKERS = 4
     PIN_MEMORY = True
-    DEVICE = 'cuda' if os.path.exists('/proc/driver/nvidia') else 'cpu'
+    # 自动检测GPU（Windows和Linux都兼容）
+    try:
+        import torch
+        DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+    except ImportError:
+        DEVICE = 'cpu'
     
     # 图像尺寸配置
     IMAGE_SIZE = 256  # 输入图像尺寸
