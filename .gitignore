@@ -1,0 +1,188 @@
+# ============================================
+# Python
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ============================================
+# Virtual Environment
+# ============================================
+venv/
+ENV/
+env/
+.venv
+venv.bak/
+env.bak/
+
+# ============================================
+# IDE
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+.settings/
+
+# ============================================
+# 数据集（大型文件，不上传）
+# ============================================
+# SCUT-FBP5500数据集（5500张图片，体积很大）
+dataset/*.zip
+dataset/SCUT-FBP5500_v2/
+dataset/SCUT-FBP5500_v2.1/
+dataset/*/Images/
+dataset/*/facial landmark/
+dataset/*/All_Ratings.xlsx
+dataset/*/Images_Sources.xlsx
+
+# 本地测试图片（data文件夹）
+data/*.jpg
+data/*.jpeg
+data/*.png
+data/*.gif
+data/*.bmp
+!data/.gitkeep
+
+# ============================================
+# 模型权重和输出（训练生成，不上传）
+# ============================================
+# 训练输出的checkpoints
+outputs/
+*.pth
+*.pt
+*.h5
+*.ckpt
+*.pkl
+*.safetensors
+*.pb
+
+# 但保留checkpoints目录结构示例
+!outputs/.gitkeep
+!outputs/checkpoints/.gitkeep
+!outputs/logs/.gitkeep
+
+# 模型目录下的权重文件（如果有）
+models/*.pth
+models/*.pt
+models/*.h5
+models/*.ckpt
+!models/.gitkeep
+
+# ============================================
+# 日志和临时文件
+# ============================================
+*.log
+*.out
+logs/
+*.tensorboard
+*.tb
+runs/
+wandb/
+
+# ============================================
+# 输出文件和报告
+# ============================================
+# 排除所有txt文件，但保留重要的配置和文档
+*.txt
+!requirements.txt
+!README.txt
+!LICENSE.txt
+
+# 测试和评估输出
+test_results/
+evaluation_results/
+prediction_results/
+*_results.txt
+report*.txt
+*.csv
+
+# ============================================
+# 系统文件
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ============================================
+# Jupyter Notebook
+# ============================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+*.ipynb
+
+# ============================================
+# 临时文件和缓存
+# ============================================
+*.tmp
+*.temp
+*.cache
+.cache/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+*.swp
+*.swo
+*.bak
+*.backup
+
+# ============================================
+# 环境和配置（可能包含敏感信息）
+# ============================================
+.env
+.env.local
+.env.*.local
+*.local
+config.local.py
+secrets.yaml
+.secrets/
+
+# ============================================
+# 压缩文件（数据集等）
+# ============================================
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# ============================================
+# 特定项目文件（可选）
+# ============================================
+# 如果有一些自动生成的文档或脚本，可以在这里添加
+# generated/
+# auto_generated.py
