@@ -281,16 +281,20 @@ class BeautyScoreGUI:
 
         # Image preview
         ttk.Label(image_frame, text="预览 Preview:").pack(anchor='w', padx=5)
+
+        # Create a container frame for the preview with border
+        preview_container = tk.Frame(image_frame, relief='solid', borderwidth=1, bg='white')
+        preview_container.pack(padx=5, pady=5, fill='both', expand=True)
+
+        # Preview label inside container - no fixed size constraints
         self.preview_label = tk.Label(
-            image_frame,
+            preview_container,
             text="No Image",
-            relief='solid',
-            width=40,
-            height=20,
-            anchor='center',
-            bg='white'
+            bg='white',
+            anchor='center'
         )
-        self.preview_label.pack(padx=5, pady=5)
+        # Center the label in the container
+        self.preview_label.place(relx=0.5, rely=0.5, anchor='center')
         self.widgets['preview'] = self.preview_label
 
         # Right: Model selection (for DL mode)
@@ -473,7 +477,7 @@ class BeautyScoreGUI:
             # Get original dimensions
             orig_width, orig_height = image.size
 
-            # Preview area max dimensions
+            # Preview area max dimensions (in pixels)
             max_width = 350
             max_height = 450
 
@@ -490,7 +494,7 @@ class BeautyScoreGUI:
             image_resized = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
             self.current_image_tk = ImageTk.PhotoImage(image_resized)
 
-            # Update preview label - Let label auto-size to image
+            # Update preview label - Clear text and show image
             self.preview_label.config(
                 image=self.current_image_tk,
                 text="",
