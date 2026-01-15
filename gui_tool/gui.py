@@ -282,19 +282,22 @@ class BeautyScoreGUI:
         # Image preview
         ttk.Label(image_frame, text="预览 Preview:").pack(anchor='w', padx=5)
 
-        # Create a container frame for the preview with border
+        # Create a container frame for the preview with fixed size and border
         preview_container = tk.Frame(image_frame, relief='solid', borderwidth=1, bg='white')
-        preview_container.pack(padx=5, pady=5, fill='both', expand=True)
+        preview_container.pack(padx=5, pady=5)
 
-        # Preview label inside container - no fixed size constraints
+        # Set fixed size for the preview container
+        preview_container.config(width=350, height=450)
+        preview_container.pack_propagate(False)  # Prevent container from shrinking
+
+        # Preview label inside container
         self.preview_label = tk.Label(
             preview_container,
             text="No Image",
-            bg='white',
-            anchor='center'
+            bg='white'
         )
-        # Center the label in the container
-        self.preview_label.place(relx=0.5, rely=0.5, anchor='center')
+        # Label will expand to fill container
+        self.preview_label.pack(fill='both', expand=True)
         self.widgets['preview'] = self.preview_label
 
         # Right: Model selection (for DL mode)
@@ -477,11 +480,12 @@ class BeautyScoreGUI:
             # Get original dimensions
             orig_width, orig_height = image.size
 
-            # Preview area max dimensions (in pixels)
+            # Preview area dimensions (in pixels)
             max_width = 350
             max_height = 450
 
             # Calculate scaling ratio to fit within preview area while maintaining aspect ratio
+            # Use min to ensure entire image is visible (contain mode, no cropping)
             width_ratio = max_width / orig_width
             height_ratio = max_height / orig_height
             scale_ratio = min(width_ratio, height_ratio)
@@ -785,7 +789,7 @@ class BeautyScoreGUI:
 def main():
     """Main entry point"""
     root = tk.Tk()
-    root.geometry("900x750")
+    root.geometry("900x1050")
 
     # Try to set window icon (optional)
     try:
