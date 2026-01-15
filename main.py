@@ -103,7 +103,7 @@ def main():
             print(f"设备: {device}\n")
             
             # 执行预测
-            score, model_name = predict(
+            score, score_100, model_name = predict(
                 image_path=args.image_path,
                 checkpoint_path=args.model,
                 device=device
@@ -118,11 +118,11 @@ def main():
 设备: {device}
 
 【预测结果】
-颜值分数: {score:.2f}/5.0
+颜值分数: {score:.2f}/5.0 ({score_100:.1f}/100分)
 
 【评分说明】
 - 使用在SCUT-FBP5500数据集上训练的深度学习模型
-- 评分范围: 1.0 - 5.0
+- 评分范围: 1.0 - 5.0 (20 - 100分)
 - 基于5500张人脸数据训练的模型
 """
             
