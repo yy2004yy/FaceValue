@@ -24,7 +24,6 @@ wheels/
 *.pyc
 *.pyo
 *.pyd
-.Python
 
 # ============================================
 # Virtual Environment
@@ -57,6 +56,13 @@ env.bak/
 dataset/*.zip
 dataset/SCUT-FBP5500_v2/
 dataset/SCUT-FBP5500_v2.1/
+
+# 但保留dataset目录下的代码文件
+!dataset/__init__.py
+!dataset/dataset_loader.py
+!dataset/README.md
+
+# 排除数据集子目录中的大文件
 dataset/*/Images/
 dataset/*/facial landmark/
 dataset/*/All_Ratings.xlsx
@@ -73,8 +79,17 @@ data/*.bmp
 # ============================================
 # 模型权重和输出（训练生成，不上传）
 # ============================================
-# 训练输出的checkpoints
-outputs/
+# 训练输出的checkpoints和日志
+outputs/*
+!outputs/.gitkeep
+!outputs/checkpoints/
+!outputs/logs/
+outputs/checkpoints/*
+!outputs/checkpoints/.gitkeep
+outputs/logs/*
+!outputs/logs/.gitkeep
+
+# 所有模型权重文件
 *.pth
 *.pt
 *.h5
@@ -82,11 +97,6 @@ outputs/
 *.pkl
 *.safetensors
 *.pb
-
-# 但保留checkpoints目录结构示例
-!outputs/.gitkeep
-!outputs/checkpoints/.gitkeep
-!outputs/logs/.gitkeep
 
 # 模型目录下的权重文件（如果有）
 models/*.pth
@@ -114,6 +124,7 @@ wandb/
 !requirements.txt
 !README.txt
 !LICENSE.txt
+!dataset/README.txt
 
 # 测试和评估输出
 test_results/

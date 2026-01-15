@@ -1,0 +1,2 @@
+# 此文件用于保留outputs目录结构
+# 训练输出的checkpoints和logs会保存在此目录下
