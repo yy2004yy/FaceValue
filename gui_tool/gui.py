@@ -172,7 +172,7 @@ class BeautyScoreGUI:
         self.translator = TranslationManager('zh')
         self.scoring_mode = tk.StringVar(value='geometric')
         self.image_path = tk.StringVar()
-        self.model_path = tk.StringVar(value='outputs/checkpoints/resnet18_best.pth')
+        self.model_path = tk.StringVar(value='outputs/resnet18/checkpoints/resnet18_best.pth')
         self.current_language = 'zh'
 
         # Model cache (for deep learning mode)
@@ -328,7 +328,7 @@ class BeautyScoreGUI:
         # Default model hint
         hint_label = ttk.Label(
             model_frame,
-            text="默认: outputs/checkpoints/\nresnet18_best.pth",
+            text="默认: outputs/resnet18/\ncheckpoints/resnet18_best.pth",
             foreground='gray',
             font=('Arial', 8)
         )
@@ -526,7 +526,7 @@ class BeautyScoreGUI:
         ]
 
         # Check if default directory exists
-        initial_dir = 'outputs/checkpoints'
+        initial_dir = 'outputs/resnet18/checkpoints'
         if not os.path.exists(initial_dir):
             initial_dir = None
 
@@ -772,7 +772,7 @@ class BeautyScoreGUI:
         """Clear all inputs and results"""
         t = self.translator.get
         self.image_path.set("")
-        self.model_path.set("outputs/checkpoints/resnet18_best.pth")
+        self.model_path.set("outputs/resnet18/checkpoints/resnet18_best.pth")
         self.preview_label.config(image="", text="No Image")
         self.filename_label.config(text="-")
         self.score_label.config(text="-")

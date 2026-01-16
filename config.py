@@ -50,9 +50,9 @@ class Config:
     ALEXNET_CROP = 227  # AlexNet裁剪尺寸
     RESNET_CROP = 224   # ResNet/ResNeXt裁剪尺寸
     
-    # 输出配置
+    # 输出配置（按模型名分类，更整洁）
     OUTPUT_DIR = 'outputs'
-    CHECKPOINT_DIR = os.path.join(OUTPUT_DIR, 'checkpoints')
+    CHECKPOINT_DIR = os.path.join(OUTPUT_DIR, 'checkpoints')  # 默认路径（向后兼容）
     LOG_DIR = os.path.join(OUTPUT_DIR, 'logs')
     
     # 评估指标
@@ -70,7 +70,16 @@ class Config:
             else:
                 setattr(self, key, value)
         
-        # 创建输出目录
+        # 创建输出目录（按模型名分类）
+        # 使用更整洁的目录结构：outputs/{MODEL_NAME}/checkpoints/
+        model_checkpoint_dir = os.path.join(self.OUTPUT_DIR, self.MODEL_NAME, 'checkpoints')
+        model_log_dir = os.path.join(self.OUTPUT_DIR, self.MODEL_NAME, 'logs')
+        
+        # 更新checkpoint和log目录路径
+        self.CHECKPOINT_DIR = model_checkpoint_dir
+        self.LOG_DIR = model_log_dir
+        
+        # 创建目录
         os.makedirs(self.CHECKPOINT_DIR, exist_ok=True)
         os.makedirs(self.LOG_DIR, exist_ok=True)
         
