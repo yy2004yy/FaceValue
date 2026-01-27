@@ -1,0 +1,13 @@
+Flask>=2.0.0
+Werkzeug>=2.0.0
+Pillow>=9.0.0
+torch>=1.10.0
+torchvision>=0.11.0
+opencv-python>=4.5.0
+numpy>=1.21.0
+
+# Windows 生产环境服务器（可选）
+# waitress>=2.1.0
+
+# Linux/Mac 生产环境服务器（可选）
+# gunicorn>=20.1.0
